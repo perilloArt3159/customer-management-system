@@ -34,7 +34,7 @@ Can't think of a fancy description for this project.
 
 |Name                                                                                                           |Version          |Description                                         |
 |:---------------------------------------------------------------------------------------------:                |:---------------:|:-------------------------------------------:       |
-|[cviebrock/eloquent-sluggable](https://github.com/cviebrock/eloquent-sluggable)                                |`8.0.8`          |Generate Slugs for Eloquent Models                  |
+|[cviebrock/eloquent-sluggable](https://github.com/cviebrock/eloquent-sluggable)                                |`9.0.0`          |Generate Slugs for Eloquent Models                  |
 |[inertiajs/inertia-laravel](https://inertiajs.com/)                                                            |`0.11.0`         |The Laravel adapter for Inertia.js                  |
 |[tighten/ziggy](https://github.com/tighten/ziggy)                                                              |`1.4.6`          |Enables usage of Laravel named routes in JavaScript |
 
@@ -73,7 +73,7 @@ APP_URL=http://localhost:8000
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=customer_managment_system
+DB_DATABASE=customer_management_system
 DB_USERNAME=root
 DB_PASSWORD=root
 ```
