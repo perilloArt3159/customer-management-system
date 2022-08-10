@@ -1,0 +1,10 @@
+<?php 
+
+namespace DummyNamespace; 
+
+use App\Services\BaseService; 
+
+class DummyClass extends BaseService
+{
+
+}
