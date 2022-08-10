@@ -6,7 +6,7 @@ Can't think of a fancy description for this project.
 
 * [Contributors](#contributors)
 * [Technologies](#technologies)
-  * [Frameworks](#frameworks)
+  * [General](#general)
   * [Composer Packages](#composer-packages)
   * [NPM Packages](#npm-packages)
 * [Project Setup](#project-setup)
@@ -64,7 +64,7 @@ $ npm install
 $ cp .env.example .env
 ```
 
-* In your `.env` file, if you disagree with the defaults, set up your correct Database Credentials. Take note for the `DB_DATABASE` parameter, the database must be created prior in MySQL.
+* In your `.env` file, if you disagree with the defaults, set up your correct parameters. Take note for the `DB_DATABASE` parameter, the database must be created prior in MySQL.
 
 ```bash
 APP_NAME="Customer Management System"
