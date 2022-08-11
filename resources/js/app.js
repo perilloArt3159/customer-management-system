@@ -6,7 +6,7 @@ import { createInertiaApp, Head, Link } from '@inertiajs/inertia-vue3';
 import { InertiaProgress, inertiaProgress } from '@inertiajs/progress';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
-import DefaultLayout from '@/Pages/Layouts/LayoutDashboard.vue';
+import DefaultLayout from '@/Layouts/LayoutDashboard.vue';
 
 createInertiaApp(
     {

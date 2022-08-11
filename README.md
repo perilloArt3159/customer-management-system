@@ -42,8 +42,9 @@ Can't think of a fancy description for this project.
 
 |Name                                                                                                           |Version          |Description                                    |
 |:--------------------------------------------------------------------------------:                             |:---------------:|:-------------------------------------------:  |
-|[Slugify](https://www.npmjs.com/package/slugify)                                                               |`1.6.2`          |Sluggify Strings                               |
 |[SASS](https://sass-lang.com/)                                                                                 |`1.54.4`         |CSS Preprocessor                               |
+|[Slugify](https://www.npmjs.com/package/slugify)                                                               |`1.6.2`          |Sluggify Strings                               |
+|[Bootstrap Icons](https://icons.getbootstrap.com)                                                              |`1.9.1`         |Open-source Icon Library                           |
 
 ## Project Setup
 
