@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { defineAsyncComponent } from "vue";
 
 export default 
@@ -9,6 +9,35 @@ export default
 </script>
 
 <script setup lang="ts">
+
+import { useForm } from '@inertiajs/inertia-vue3';
+
+const form = useForm(
+    {
+        username: null,
+        password: null,
+    }
+); 
+
+function submit()
+{
+    form.clearErrors();
+
+    form.post(
+        route('login.authenticate'),
+        {
+            onSuccess: () => 
+            {
+                //...
+            },
+            onError: () => 
+            {
+                //...
+            }
+        }
+    )
+}
+
 
 </script>
 
@@ -36,7 +65,7 @@ export default
             Login
         </div>
         <div class="card-body">
-            <form action="">
+            <form @submit.prevent="submit">
                 <div class="form-row">
                     <div class="col-12">
                         <div class="input-group mb-2">
@@ -45,7 +74,7 @@ export default
                                     <i class="bi-person-fill fs-5 text-white"></i>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" id="username" placeholder="Username">
+                            <input v-model="form.username" type="text" class="form-control" id="username" placeholder="Username">
                         </div>
                     </div>
                     <div class="col-auto">
@@ -55,7 +84,7 @@ export default
                                     <i class="bi-key-fill fs-5 text-white"></i>
                                 </div>
                             </div>
-                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <input v-model="form.password" type="password" class="form-control" id="password" placeholder="Password">
                         </div>
                     </div>
                 </div>
