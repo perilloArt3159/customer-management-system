@@ -83,10 +83,8 @@ const submit = () =>
                 <div class="form-row">
                     <div class="col-12">
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text  bg-primary">
-                                    <i class="bi-person-fill fs-5 text-white"></i>
-                                </div>
+                            <div class="input-group-text  bg-primary">
+                                <i class="bi-person-fill fs-5 text-white"></i>
                             </div>
                             <input 
                                 v-model="form.name" 
@@ -114,10 +112,8 @@ const submit = () =>
                     </div>
                     <div class="col-auto">
                         <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text  bg-primary">
-                                    <i class="bi-key-fill fs-5 text-white"></i>
-                                </div>
+                            <div class="input-group-text  bg-primary">
+                                <i class="bi-key-fill fs-5 text-white"></i>
                             </div>
                             <input 
                                 v-model="form.password" 

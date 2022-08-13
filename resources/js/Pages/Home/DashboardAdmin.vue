@@ -7,7 +7,7 @@
 </style>
 
 <template>
-    <h1 class="fw-bold text-secondary">
+    <h3 class="fw-bold text-secondary">
         Dashboard
-    </h1>
+    </h3>
 </template>

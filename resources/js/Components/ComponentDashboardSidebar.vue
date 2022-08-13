@@ -13,7 +13,7 @@ interface Items
     isActive: boolean;
 }
 
-const isActive: Ref<boolean> = ref(true); 
+const isActive: Ref<boolean> = ref(false); 
 
 const toggleStateActive = () => 
 {

@@ -26,6 +26,11 @@ class CustomerController extends Controller
      */
     public function index(): \Inertia\Response
     {
-        return Inertia::render('Customer/CustomerList');
+        $customers = (new CustomerService())->fetchItems(['test' => 'test']); 
+
+        return Inertia::render(
+            'Customer/CustomerList', 
+            compact('customers')
+        );
     }
 }
