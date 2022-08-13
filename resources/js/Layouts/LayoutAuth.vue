@@ -1,5 +1,7 @@
 <script setup>
 
+import AppAlert from "@/Components/AppAlert.vue";
+
 </script>
 
 <style scoped lang="scss">
@@ -23,6 +25,7 @@
         <title></title>
     </Head>
     <div class="wrapper">
+        <AppAlert/>
         <header>
         </header>
         <main>

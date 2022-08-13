@@ -23,6 +23,7 @@ Route::prefix('/') ->group(
         Route::get('',                              [HomeController::class,                      'index'])->name('home');
         Route::get('/login',                        [AuthController::class,                      'login'])->name('login');
         Route::post('/login/authenticate',          [AuthController::class,                      'authenticate'])->name('login.authenticate');
+        Route::post('/logout',                      [AuthController::class,                      'logout'])->name('logout');
     }
 );
 

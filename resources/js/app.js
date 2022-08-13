@@ -33,6 +33,7 @@ createInertiaApp(
                 .use(plugin)
                 .component('Head', Head)
                 .component('Link', Link)
+                .mixin({ methods: { route } })
                 .mount(el)
         },
     }

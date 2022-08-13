@@ -45,7 +45,7 @@ const submit = () =>
             onError: () => 
             {
                 //...
-            }
+            },
         }
     ); 
 
@@ -144,7 +144,13 @@ const submit = () =>
                     </div>
                 </div>
                 <div class="d-grid">
-                    <button class="btn btn-primary fw-bolder mt-1" type="submit">Submit</button>
+                    <button 
+                        class="btn btn-primary fw-bolder mt-1" 
+                        type="submit"
+                        :disabled="form.processing"
+                    >
+                        Submit
+                    </button>
                 </div>
             </form>
         </div>
