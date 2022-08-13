@@ -7,7 +7,7 @@
 </style>
 
 <template>
-    <h1 class="text-primary">
-        Hello adadfjasdfsadf
+    <h1 class="fw-bold text-secondary">
+        Dashboard
     </h1>
 </template>

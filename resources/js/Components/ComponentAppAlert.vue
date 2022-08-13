@@ -7,7 +7,7 @@
 </style>
 
 <template>
-    <div v-if="$page.props.flash.message" class="alert alert-success d-flex align-items-center" role="alert">
+    <div v-if="$page.props.flash.message" class="alert alert-primary d-flex align-items-center alert-dismissible fade show" role="alert">
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
             width="24" 
@@ -21,9 +21,10 @@
         <div>
             {{$page.props.flash.message}}
         </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 
-    <div v-if="$page.props.flash.error" class="alert alert-danger d-flex align-items-center" role="alert">
+    <div v-if="$page.props.flash.error" class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
             width="24" 
@@ -38,5 +39,6 @@
         <div>
             {{$page.props.flash.error}}
         </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 </template>

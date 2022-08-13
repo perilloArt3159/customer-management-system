@@ -1,6 +1,6 @@
 <script setup>
 
-import AppAlert from "@/Components/AppAlert.vue";
+import ComponentAppAlert from "@/Components/ComponentAppAlert.vue";
 
 </script>
 
@@ -25,7 +25,7 @@ import AppAlert from "@/Components/AppAlert.vue";
         <title></title>
     </Head>
     <div class="wrapper">
-        <AppAlert/>
+        <ComponentAppAlert/>
         <header>
         </header>
         <main>

@@ -30,6 +30,6 @@ Route::prefix('/') ->group(
 Route::prefix('/customers')->group(
     function ()
     {
-        Route::get('',                              [CustomerController::class,                  'index'])->name('customers.index');
+        Route::get('',                              [CustomerController::class,                  'index'])->name('customers');
     }
 ); 
