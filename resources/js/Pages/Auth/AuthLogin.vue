@@ -1,4 +1,5 @@
 <script lang="ts">
+
 import { defineAsyncComponent } from "vue";
 
 export default 
@@ -10,18 +11,29 @@ export default
 
 <script setup lang="ts">
 
+import { ref, defineProps } from "vue";
+import type { Ref } from 'vue';
 import { useForm } from '@inertiajs/inertia-vue3';
+
+interface Props 
+{
+    errors?: Object | null,
+}
+
+const props = defineProps<Props>();
 
 const form = useForm(
     {
-        username: null,
+        name    : null,
         password: null,
     }
 ); 
 
-function submit()
+const wasFormValidated: Ref<boolean> = ref(false); 
+
+const submit = () => 
 {
-    form.clearErrors();
+    form.clearErrors(); 
 
     form.post(
         route('login.authenticate'),
@@ -35,7 +47,9 @@ function submit()
                 //...
             }
         }
-    )
+    ); 
+
+    wasFormValidated.value = true; 
 }
 
 
@@ -65,7 +79,7 @@ function submit()
             Login
         </div>
         <div class="card-body">
-            <form @submit.prevent="submit">
+            <form @submit.prevent="submit" class="needs-validation" novalidate>
                 <div class="form-row">
                     <div class="col-12">
                         <div class="input-group mb-2">
@@ -74,7 +88,28 @@ function submit()
                                     <i class="bi-person-fill fs-5 text-white"></i>
                                 </div>
                             </div>
-                            <input v-model="form.username" type="text" class="form-control" id="username" placeholder="Username">
+                            <input 
+                                v-model="form.name" 
+                                type="text" 
+                                id="name"
+                                placeholder="Username" 
+                                :class="{
+                                    'form-control' : true, 
+                                    'is-valid'     : wasFormValidated && errors?.name == null, 
+                                    'is-invalid'   : wasFormValidated && errors?.name != null 
+                                }" 
+                                required
+                            >
+                            <div class="valid-feedback">
+                                <small>
+                                    <i class="bi-check-circle"></i> Looks Good! 
+                                </small>
+                            </div>
+                            <div class="invalid-feedback">
+                                <small>
+                                    <i class="bi-exclamation-circle"></i> {{ errors?.name }}
+                                </small>
+                            </div>
                         </div>
                     </div>
                     <div class="col-auto">
@@ -84,7 +119,27 @@ function submit()
                                     <i class="bi-key-fill fs-5 text-white"></i>
                                 </div>
                             </div>
-                            <input v-model="form.password" type="password" class="form-control" id="password" placeholder="Password">
+                            <input 
+                                v-model="form.password" 
+                                id="password"
+                                type="password" 
+                                :class="{
+                                    'form-control' : true, 
+                                    'is-valid'     : wasFormValidated && errors?.password == null, 
+                                    'is-invalid'   : wasFormValidated && errors?.password != null 
+                                }"  
+                                placeholder="Password"
+                            >
+                            <div class="valid-feedback">
+                                <small>
+                                    <i class="bi-check-circle"></i> Looks Good! 
+                                </small>
+                            </div>
+                            <div class="invalid-feedback">
+                                <small>
+                                    <i class="bi-exclamation-circle"></i> {{ errors?.password }}
+                                </small>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::guest();
+        return true;
     }
 
     /**
@@ -25,8 +25,20 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"     => ['required', 'string'],
-            "password" => ['required', 'string', 'confirmed']
+            "name"     => ['required', 'string', 'exists:users,name'],
+            "password" => ['required', 'string']
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.exists' => 'User Not Found',
         ];
     }
 }
