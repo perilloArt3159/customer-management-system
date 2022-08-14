@@ -52,7 +52,6 @@ const submit = () =>
     wasFormValidated.value = true; 
 }
 
-
 </script>
 
 <style lang="scss">

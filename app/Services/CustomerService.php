@@ -18,4 +18,26 @@ class CustomerService extends BaseService
     {
         return Customer::all();
     }
+
+    /**
+     * Store Item 
+     * 
+     * @param array $data 
+     * 
+     * @return null
+     */
+    public function storeItem($data)
+    {
+        Customer::create(
+            [
+                "name"              => $data['name'],
+                "email"             => $data['email'],
+                "contact_number"    => $data['contact_number'],
+                "contact_person"    => $data['contact_person'],
+                "address"           => $data['address'],
+                "tin_number"        => $data['tin_number'],
+                "type"              => $data['type'],
+            ]
+        );
+    }
 }

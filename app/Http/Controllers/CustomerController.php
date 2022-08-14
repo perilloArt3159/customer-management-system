@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerStoreRequest;
 use App\Services\CustomerService; 
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Inertia\Inertia;
 
 class CustomerController extends Controller
@@ -32,5 +34,29 @@ class CustomerController extends Controller
             'Customer/CustomerList', 
             compact('customers')
         );
+    }
+
+    /**
+     * Store Customer Data 
+     * 
+     * @param CustomerStoreRequest $request
+     * 
+     * @return Response
+     */
+    public function store(CustomerStoreRequest $request): Response
+    {
+        (new CustomerService())->storeItem(
+            $request->only(
+                "name",
+                "email",
+                "contact_number",
+                "contact_person",
+                "address",
+                "tin_number",
+                "type",
+            )
+        );
+
+        return redirect()->back()->with('message', 'New Customer Created');
     }
 }

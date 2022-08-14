@@ -1,6 +1,8 @@
 <script setup lang="ts">
 
 import { defineProps } from 'vue';
+import ComponentCustomerModalContentCreate from '@/Components/ComponentCustomerModalContentCreate.vue';
+import ComponentCustomerModalContentUpdate from '@/Components/ComponentCustomerModalContentUpdate.vue';
 
 interface Props 
 {
@@ -113,23 +115,17 @@ const props = defineProps <Props>();
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="modalCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
-                    <h5 class="modal-title" id="staticBackdropLabel">Customer Information</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success">Save</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
-                </div>
-            </div>
+    <Teleport to="body">
+        <div 
+            class="modal fade" 
+            id="modalCreate" 
+            data-bs-backdrop="static" 
+            data-bs-keyboard="false" 
+            tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true"
+        >
+            <ComponentCustomerModalContentCreate/>
         </div>
-    </div>
+    </Teleport>
 
 </template>
