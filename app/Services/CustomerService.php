@@ -16,7 +16,40 @@ class CustomerService extends BaseService
      */
     public function fetchItems($data)
     {
-        return Customer::all();
+        $items  =   Customer::query()
+                        ->when(
+                            isset($data['sortByColumn']),
+                            function ($query) use ($data)
+                            {
+                                $sortDirection = 'asc';
+
+                                if ($data['sortByDescending'])
+                                {
+                                    $sortDirection = 'desc';
+                                }
+
+                                $query->orderBy($data['sortByColumn'], $sortDirection);
+                            }
+                        )
+                        ->where(
+                            function ($query) use ($data)
+                            {
+                                if (isset($data['search']))
+                                {
+                                    $search = "%{$data['search']}%";
+
+                                    $query->where('name', 'like', $search);
+                                }
+                            }
+                        )
+                        ->paginate(
+                            $perPage = $data['sizePerPage'] ?? 10,
+                            $columns = ['*'],
+                            $pageName = "page",
+                            $page = $data['showPage'] ?? 1
+                        );
+        
+                        return $items;
     }
 
     /**

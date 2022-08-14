@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerListRequest;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Models\Customer;
 use App\Services\CustomerService; 
 
-use PDF; 
-
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Inertia\Inertia;
 
+use PDF; 
 
 class CustomerController extends Controller
 {
@@ -28,11 +26,21 @@ class CustomerController extends Controller
     /**
      * Render Login Page 
      * 
+     * @param Request $request
+     * 
      * @return \Inertia\Response
      */
-    public function index(): \Inertia\Response
+    public function index(CustomerListRequest $request): \Inertia\Response
     {
-        $customers = (new CustomerService())->fetchItems(['test' => 'test']); 
+        $customers = (new CustomerService())->fetchItems(
+            $request->only(
+                'search',     
+                'sizePerPage',
+                'showPage',
+                'sortBy',     
+                'sortDesc'   
+            )
+        ); 
 
         return Inertia::render(
             'Customer/CustomerList', 

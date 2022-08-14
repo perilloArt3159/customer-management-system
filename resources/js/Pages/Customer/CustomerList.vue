@@ -1,8 +1,12 @@
 <script setup lang="ts">
 
-import { defineProps } from 'vue';
+import { defineProps, ref, computed, watch } from 'vue';
+import debounce from 'lodash/debounce';
+import { Inertia } from "@inertiajs/inertia";
+
 import ComponentCustomerModalContentCreate from '@/Components/ComponentCustomerModalContentCreate.vue';
 import ComponentCustomerModalContentUpdate from '@/Components/ComponentCustomerModalContentUpdate.vue';
+import ComponentAppPagination from '@/Components/ComponentAppPagination.vue'; 
 
 interface Props 
 {
@@ -10,6 +14,122 @@ interface Props
 }
 
 const props = defineProps <Props>(); 
+
+const refCurrentPage  = ref<number>(props.customers.current_page);
+const refSearchQuery  = ref<string | null>(null);
+const refSortBy       = ref<string | null>(null);
+const refSortDesc     = ref<boolean>(false);
+const refShowItems    = ref<number>(props.customers.per_page);
+const refTotalItems   = computed(() => props.customers.total);
+
+const refVisiblePages = ref<number>(10);
+
+const optionsItemShow = 
+    [
+        {
+            'label'   : 10,
+            'value'   : 10,
+            'selected': true,
+        },
+        {
+            'label'   : 25,
+            'value'   : 25,
+            'selected': false,
+        },
+        {
+            'label'   : 50,
+            'value'   : 50,
+            'selected': false,
+        },
+        {
+            'label'   : 100,
+            'value'   : 100,
+            'selected': false,
+        },
+        {
+            'label'   : 1000,
+            'value'   : 1000,
+            'selected': false,
+        }
+    ];
+
+const onPageChange = (page) => 
+{
+    refCurrentPage.value = page;
+};
+
+const dataMeta = computed(() => 
+    {
+        return {
+            from : (0 + 1) + (refShowItems.value * (refCurrentPage.value - 1)),
+            to   : (refShowItems.value * (refCurrentPage.value)) > refTotalItems.value ? refTotalItems.value : (refShowItems.value * (refCurrentPage.value)),
+            of   : refTotalItems.value,
+            pages: Math.ceil(refTotalItems.value / refShowItems.value)
+        }
+    }
+);
+
+watch(
+    [refCurrentPage],
+    debounce(function () 
+        {
+            const requestData : Object =
+            {
+                'search'     : refSearchQuery.value,
+                'sizePerPage': refShowItems.value,
+                'showPage'   : refCurrentPage.value,
+                'sortBy'     : refSortBy.value,
+                'sortDesc'   : refSortDesc.value,
+            };
+
+            onChangeRequest(requestData);
+        },
+        250
+    )
+);
+
+watch(
+    [refShowItems, refSearchQuery],
+    debounce(function () 
+        {
+            refCurrentPage.value = 1;
+
+            const requestData : Object =
+            {
+                'search'     : refSearchQuery.value,
+                'sizePerPage': refShowItems.value,
+                'showPage'   : refCurrentPage.value,
+                'sortBy'     : refSortBy.value,
+                'sortDesc'   : refSortDesc.value,
+            };
+
+            onChangeRequest(requestData);
+        },
+        250
+    )
+); 
+
+const onChangeRequest = (requestData : Object) => 
+{
+    Inertia.get(
+        route('customers'),
+        {
+            'search'               : requestData.search ?? null,
+            'sizePerPage'          : requestData.sizePerPage ?? 10,
+            'showPage'             : requestData.showPage ?? 1,
+            'sortByColumn'         : requestData.sortBy ?? 'name',
+            'sortByDescending'     : requestData.sortDesc ?? false,
+        },
+        {
+            preserveState: true,
+            replace: true
+        }
+    ); 
+};
+
+console.log('In Main')
+
+console.table(refCurrentPage.value, refSearchQuery.value, refSortBy.value, refSortDesc.value, refShowItems.value, refTotalItems.value, dataMeta.value.pages);
 
 </script>
 
@@ -49,12 +169,12 @@ const props = defineProps <Props>();
         </div>
 
         <div>
-            <form action="">
+            <form>
                 <div class="input-group">
                     <span class="input-group-text bg-primary text-white" id="basic-addon1">
                         <i class="bi bi-search fs-6"></i>
                     </span>
-                    <input type="text" class="form-control" placeholder="Search" aria-label="Username"
+                    <input v-model="refSearchQuery" type="text" class="form-control" placeholder="Search" aria-label="Search"
                         aria-describedby="basic-addon1">
                 </div>
             </form>
@@ -74,7 +194,7 @@ const props = defineProps <Props>();
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in customers" :key="item?.slug">
+                <tr v-for="item in customers.data" :key="item?.slug">
                     <td class="text-success text-center">
                         <i class="bi bi-plus-circle-fill">
 
@@ -114,12 +234,18 @@ const props = defineProps <Props>();
         
         <!-- SHOW ITEMS HERE-->
         <div>
-            Show 1 to 4 of 4 entries
+            Showing {{ dataMeta.from }} - {{ dataMeta.to }} of {{ dataMeta.of }} Items 
         </div>
 
         <!-- PAGINATION HERE -->
         <div>
-            Pagination
+            <ComponentAppPagination
+                :totalPages="dataMeta.pages"
+                :perPage="refShowItems"
+                :currentPage="refCurrentPage"
+                :maxVisibleButtons="refVisiblePages"
+                @onPageChange="onPageChange"
+            />
         </div>
     </div>
 
