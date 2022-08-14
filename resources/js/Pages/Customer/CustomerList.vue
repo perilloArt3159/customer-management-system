@@ -86,7 +86,7 @@ const props = defineProps <Props>();
                         {{item.address}}
                     </td>
                     <td>
-                        {{ item.tin_number }}
+                        {{ item.contact_number }}
                     </td>
                     <td>
                         <button type="button" class="btn btn-info btn-sm text-white me-2">

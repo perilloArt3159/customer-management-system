@@ -6,7 +6,7 @@ import { useForm } from '@inertiajs/inertia-vue3';
 
 interface Props 
 {
-    errors?: Object | null,
+    errors?: Object,
 }
 
 const props = defineProps<Props>();
@@ -34,17 +34,26 @@ const submit = () =>
         {
             onSuccess: () => 
             {
-                //...
+                wasFormValidated.value = false;
+                form.reset();
             },
             onError: () => 
             {
-                //...
+                wasFormValidated.value = true;
             },
         }
     );
+};
 
-    wasFormValidated.value = true;
-}
+const closeForm = () => 
+{
+    form.reset();
+    form.clearErrors();
+
+    wasFormValidated.value = false;
+}; 
+
+
 </script>
 
 <style scoped lang="scss">
@@ -57,13 +66,13 @@ const submit = () =>
             <form @submit.prevent="submit" class="needs-validation" novalidate>
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="staticBackdropLabel">Customer Information</h5>
-                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close" @click="closeForm()"></button>
                 </div>
                 <div class="modal-body">
                         <div class="form-group row my-3">
                             <label for="inputCustomerName" class="col-md-3 col-form-label fw-bold">
                                 <span class="text-danger me-1">*</span>
-                                Customer Name:
+                                Customer Name:    {{errors}}
                             </label>
                             <div class="col-md-9">
                                 <div class="input-group">
@@ -73,7 +82,11 @@ const submit = () =>
                                     <input 
                                         v-model="form.name"
                                         type="text" 
-                                        class="form-control" 
+                                        :class="[
+                                            'form-control',
+                                            (wasFormValidated && form.errors?.name == null) ? 'is-valid' : null, 
+                                            (wasFormValidated && form.errors?.name != null) ? 'is-invalid' : null 
+                                        ]"  
                                         id="inputCustomerName" 
                                         placeholder="Name"
                                         required
@@ -85,7 +98,7 @@ const submit = () =>
                                     </div>
                                     <div class="invalid-feedback">
                                         <small>
-                                            <i class="bi-exclamation-circle"></i> {{ errors?.name }}
+                                            <i class="bi-exclamation-circle"></i> {{ form.errors?.name }}
                                         </small>
                                     </div>
                                 </div>
@@ -104,7 +117,11 @@ const submit = () =>
                                     <input
                                         v-model="form.contact_person" 
                                         type="text" 
-                                        class="form-control" 
+                                        :class="[
+                                            'form-control',
+                                            (wasFormValidated && form.errors?.contact_person == null) ? 'is-valid' : null, 
+                                            (wasFormValidated && form.errors?.contact_person != null) ? 'is-invalid' : null 
+                                        ]"  
                                         id="inputContactPerson"
                                         placeholder="Contact Person"
                                     >
@@ -115,7 +132,7 @@ const submit = () =>
                                     </div>
                                     <div class="invalid-feedback">
                                         <small>
-                                            <i class="bi-exclamation-circle"></i> {{ errors?.contact_person }}
+                                            <i class="bi-exclamation-circle"></i> {{ form.errors?.contact_person }}
                                         </small>
                                     </div>
                                 </div>
@@ -134,7 +151,11 @@ const submit = () =>
                                     <textarea
                                         v-model="form.address" 
                                         type="text" 
-                                        class="form-control" 
+                                        :class="[
+                                            'form-control',
+                                            (wasFormValidated && form.errors?.address == null) ? 'is-valid' : null, 
+                                            (wasFormValidated && form.errors?.address != null) ? 'is-invalid' : null 
+                                        ]"   
                                         id="inputAddress" 
                                         placeholder="Address"
                                         required
@@ -147,7 +168,7 @@ const submit = () =>
                                     </div>
                                     <div class="invalid-feedback">
                                         <small>
-                                            <i class="bi-exclamation-circle"></i> {{ errors?.address }}
+                                            <i class="bi-exclamation-circle"></i> {{ form.errors?.address }}
                                         </small>
                                     </div>
                                 </div>
@@ -166,7 +187,11 @@ const submit = () =>
                                     <input
                                         v-model="form.email" 
                                         type="email" 
-                                        class="form-control" 
+                                        :class="[
+                                            'form-control',
+                                            (wasFormValidated && form.errors?.email == null) ? 'is-valid' : null, 
+                                            (wasFormValidated && form.errors?.email != null) ? 'is-invalid' : null 
+                                        ]"   
                                         id="inputEmail" 
                                         placeholder="Email"
                                     >
@@ -177,7 +202,7 @@ const submit = () =>
                                     </div>
                                     <div class="invalid-feedback">
                                         <small>
-                                            <i class="bi-exclamation-circle"></i> {{ errors?.email }}
+                                            <i class="bi-exclamation-circle"></i> {{ form.errors?.email }}
                                         </small>
                                     </div>
                                 </div>
@@ -195,6 +220,11 @@ const submit = () =>
                                     </div>
                                     <input
                                         v-model="form.contact_number" 
+                                        :class="[
+                                            'form-control',
+                                            (wasFormValidated && form.errors?.contact_number == null) ? 'is-valid' : null, 
+                                            (wasFormValidated && form.errors?.contact_number != null) ? 'is-invalid' : null 
+                                        ]"   
                                         type="text" 
                                         class="form-control" 
                                         id="inputPhone" 
@@ -207,7 +237,7 @@ const submit = () =>
                                     </div>
                                     <div class="invalid-feedback">
                                         <small>
-                                            <i class="bi-exclamation-circle"></i> {{ errors?.contact_number }}
+                                            <i class="bi-exclamation-circle"></i> {{ form.errors?.contact_number }}
                                         </small>
                                     </div>
                                 </div>
@@ -226,7 +256,11 @@ const submit = () =>
                                     <input
                                         v-model="form.tin_number" 
                                         type="text" 
-                                        class="form-control" 
+                                        :class="[
+                                            'form-control',
+                                            (wasFormValidated && form.errors?.tin_number == null) ? 'is-valid' : null, 
+                                            (wasFormValidated && form.errors?.tin_number != null) ? 'is-invalid' : null 
+                                        ]"                                           
                                         id="inputTin" 
                                         placeholder="TIN"
                                     >
@@ -237,7 +271,7 @@ const submit = () =>
                                     </div>
                                     <div class="invalid-feedback">
                                         <small>
-                                            <i class="bi-exclamation-circle"></i> {{ errors?.tin_number }}
+                                            <i class="bi-exclamation-circle"></i> {{ form.errors?.tin_number }}
                                         </small>
                                     </div>
                                 </div>
@@ -254,7 +288,11 @@ const submit = () =>
                                         <i class="bi bi-question-circle-fill fs-6 text-white"></i>
                                     </div>
                                     <select 
-                                        class="form-select" 
+                                        :class="[
+                                            'form-control',
+                                            (wasFormValidated && form.errors?.type == null) ? 'is-valid' : null, 
+                                            (wasFormValidated && form.errors?.type != null) ? 'is-invalid' : null 
+                                        ]"   
                                         aria-label="Default select example"
                                     >
                                         <option value="NONE" selected>None</option>
@@ -268,7 +306,7 @@ const submit = () =>
                                     </div>
                                     <div class="invalid-feedback">
                                         <small>
-                                            <i class="bi-exclamation-circle"></i> {{ errors?.tin_number }}
+                                            <i class="bi-exclamation-circle"></i> {{ form.errors?.type }}
                                         </small>
                                     </div>
                                 </div>
@@ -276,8 +314,8 @@ const submit = () =>
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success" :disabled="form.processing">Save</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" @click="closeForm()">Cancel</button>
                 </div>
             </form>
         </div>

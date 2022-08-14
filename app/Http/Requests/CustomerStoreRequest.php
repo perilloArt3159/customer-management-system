@@ -25,12 +25,12 @@ class CustomerStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"              => ['required', 'string', 'max:255'],           
-            "email"             => ['nullable', 'email'], 
-            "contact_number"    => ['nullable', 'numeric'],
+            "name"              => ['required', 'string', 'min:1', 'max:255'],           
+            "email"             => ['nullable', 'email', 'unique:customers,email'], 
+            "contact_number"    => ['nullable', 'numeric', 'digits:11'],
             "contact_person"    => ['nullable', 'string'], 
             "address"           => ['required', 'string'],
-            "tin_number"        => ['nullable', 'numeric'],
+            "tin_number"        => ['nullable', 'numeric', 'digits:12'],
             "type"              => ['nullable', 'string']
         ];
     }

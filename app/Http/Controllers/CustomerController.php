@@ -41,9 +41,9 @@ class CustomerController extends Controller
      * 
      * @param CustomerStoreRequest $request
      * 
-     * @return Response
+     * @return  \Illuminate\Http\RedirectResponse
      */
-    public function store(CustomerStoreRequest $request): Response
+    public function store(CustomerStoreRequest $request):  \Illuminate\Http\RedirectResponse 
     {
         (new CustomerService())->storeItem(
             $request->only(
@@ -58,5 +58,18 @@ class CustomerController extends Controller
         );
 
         return redirect()->back()->with('message', 'New Customer Created');
+    }
+
+
+    /**
+     * Store Customer Data 
+     * 
+     * @param string $slug
+     * 
+     * @return  \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(string $slug): \Illuminate\Http\RedirectResponse
+    {
+        return redirect()->back()->with('message', 'Customer Deleted');
     }
 }
