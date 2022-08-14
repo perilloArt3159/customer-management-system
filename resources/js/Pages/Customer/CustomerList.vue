@@ -92,9 +92,14 @@ const props = defineProps <Props>();
                         <button type="button" class="btn btn-info btn-sm text-white me-2">
                             <i class="bi bi-pen-fill fs-6"></i>
                         </button>
-                        <button class="btn btn-danger btn-sm">
-                            <i type="button" class="bi bi-trash-fill fs-6"></i>
-                        </button>
+                        <Link 
+                            :href="route('customers.destroy', {slug : item.slug})"
+                            method="DELETE"
+                            class="btn btn-danger btn-sm"
+                            as="button"
+                        >
+                            <i class="bi bi-trash-fill fs-6"></i>
+                        </Link>
                     </td>
                 </tr>
             </tbody>

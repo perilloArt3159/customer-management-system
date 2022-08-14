@@ -32,7 +32,7 @@ Route::prefix('/customers')->group(
     {
         Route::get('',                              [CustomerController::class,                  'index'])->name('customers');
         Route::post('create',                       [CustomerController::class,                  'store'])->name('customers.store');
-        Route::post('destroy/{slug}',               [CustomerController::class,                  'destroy'])->name('customers.destroy');
+        Route::delete('destroy/{slug}',             [CustomerController::class,                  'destroy'])->name('customers.destroy');
 
     }
 ); 

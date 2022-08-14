@@ -70,6 +70,8 @@ class CustomerController extends Controller
      */
     public function destroy(string $slug): \Illuminate\Http\RedirectResponse
     {
+        (new CustomerService())->deleteItem($slug); 
+
         return redirect()->back()->with('message', 'Customer Deleted');
     }
 }

@@ -40,4 +40,17 @@ class CustomerService extends BaseService
             ]
         );
     }
+
+    /**
+     * Delete Item 
+     * 
+     * @param string $slug 
+     * 
+     * @return null
+     */
+    public function deleteItem(string $slug)
+    {
+        Customer::findBySlugOrFail($slug)
+            ->delete(); 
+    }
 }
