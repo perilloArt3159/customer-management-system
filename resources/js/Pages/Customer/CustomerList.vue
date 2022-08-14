@@ -161,21 +161,30 @@ const onChangeRequest = (requestData : Object | null) =>
 
     <div class="container-fluid d-flex align-items-center">
         <div>
-            <button 
-                type="button" 
-                class="btn btn-primary d-flex fw-bold"
-                data-bs-toggle="modal" data-bs-target="#modalCreate"
-            >
-                <i class="bi bi-plus-circle fs-6"></i> 
+            <form>
+                <div class="input-group">
+                    <span class="input-group-text bg-primary text-white" id="basic-addon1">
+                        <i class="bi bi-eye-fill"></i>
+                    </span>
+                    <select v-model="refShowItems" class="form-control">
+                        <option v-for="item in optionsItemShow" :key="item.label" :selected="item.selected"
+                            :value="item.value">
+                            {{ item.label }}
+                        </option>
+                    </select>
+                </div>
+            </form>
+        </div>
+        <div class="ms-2">
+            <button type="button" class="btn btn-primary d-flex fw-bold" data-bs-toggle="modal"
+                data-bs-target="#modalCreate">
+                <i class="bi bi-plus-circle fs-6"></i>
                 <span class="mx-1">New Customer</span>
             </button>
         </div>
         <div class="ms-auto me-2">
-            <a 
-                class="btn btn-primary d-flex align-items-center fw-bold flex-shrink-1"
-                target="_blank"
-                :href="route('customers.pdf')"
-            >
+            <a class="btn btn-primary d-flex align-items-center fw-bold flex-shrink-1" target="_blank"
+                :href="route('customers.pdf')">
                 <i class="bi bi-printer fs-6"></i>
                 <span class="mx-1">
                     Print
@@ -189,8 +198,8 @@ const onChangeRequest = (requestData : Object | null) =>
                     <span class="input-group-text bg-primary text-white" id="basic-addon1">
                         <i class="bi bi-search fs-6"></i>
                     </span>
-                    <input v-model="refSearchQuery" type="text" class="form-control" placeholder="Search" aria-label="Search"
-                        aria-describedby="basic-addon1">
+                    <input v-model="refSearchQuery" type="text" class="form-control" placeholder="Search"
+                        aria-label="Search" aria-describedby="basic-addon1">
                 </div>
             </form>
         </div>
@@ -201,122 +210,70 @@ const onChangeRequest = (requestData : Object | null) =>
             <thead class="bg-white text-secondary">
                 <tr>
                     <th></th>
-                    <th
-                        class="cursor-pointer" 
-                        @click="sortColumn('name')"
-                    >
+                    <th class="cursor-pointer" @click="sortColumn('name')">
                         <div class="d-flex justify-content-between">
                             <span>
                                 Customer Name
                             </span>
-                            <template
-                                v-if="refSortBy == 'name'"
-                            >
-                                <i
-                                    v-if="refSortDirection == 'asc'" 
-                                    class="bi bi-chevron-double-up"
-                                >
+                            <template v-if="refSortBy == 'name'">
+                                <i v-if="refSortDirection == 'asc'" class="bi bi-chevron-double-up">
                                 </i>
-                                <i
-                                    v-else
-                                    class="bi bi-chevron-double-down"
-                                >
+                                <i v-else class="bi bi-chevron-double-down">
                                 </i>
                             </template>
                             <template v-else>
-                                <i
-                                    class="bi bi-chevron-bar-contract"
-                                >
+                                <i class="bi bi-chevron-bar-contract">
                                 </i>
                             </template>
                         </div>
                     </th>
-                    <th
-                        class="cursor-pointer" 
-                        @click="sortColumn('contact_person')"
-                    >
+                    <th class="cursor-pointer" @click="sortColumn('contact_person')">
                         <div class="d-flex justify-content-between">
                             <span>
                                 Contact Person
                             </span>
-                            <template
-                                v-if="refSortBy == 'contact_person'"
-                            >
-                                <i
-                                    v-if="refSortDirection == 'asc'" 
-                                    class="bi bi-chevron-double-up"
-                                >
+                            <template v-if="refSortBy == 'contact_person'">
+                                <i v-if="refSortDirection == 'asc'" class="bi bi-chevron-double-up">
                                 </i>
-                                <i
-                                    v-else
-                                    class="bi bi-chevron-double-down"
-                                >
+                                <i v-else class="bi bi-chevron-double-down">
                                 </i>
                             </template>
                             <template v-else>
-                                <i
-                                    class="bi bi-chevron-bar-contract"
-                                >
+                                <i class="bi bi-chevron-bar-contract">
                                 </i>
                             </template>
                         </div>
                     </th>
-                    <th
-                        class="cursor-pointer" 
-                        @click="sortColumn('address')"
-                    >
+                    <th class="cursor-pointer" @click="sortColumn('address')">
                         <div class="d-flex justify-content-between">
                             <span>
                                 Address
                             </span>
-                            <template
-                                v-if="refSortBy == 'address'"
-                            >
-                                <i
-                                    v-if="refSortDirection == 'asc'" 
-                                    class="bi bi-chevron-double-up"
-                                >
+                            <template v-if="refSortBy == 'address'">
+                                <i v-if="refSortDirection == 'asc'" class="bi bi-chevron-double-up">
                                 </i>
-                                <i
-                                    v-else
-                                    class="bi bi-chevron-double-down"
-                                >
+                                <i v-else class="bi bi-chevron-double-down">
                                 </i>
                             </template>
                             <template v-else>
-                                <i
-                                    class="bi bi-chevron-bar-contract"
-                                >
+                                <i class="bi bi-chevron-bar-contract">
                                 </i>
                             </template>
                         </div>
                     </th>
-                    <th
-                        class="cursor-pointer" 
-                        @click="sortColumn('contact_number')"
-                    >
+                    <th class="cursor-pointer" @click="sortColumn('contact_number')">
                         <div class="d-flex justify-content-between">
                             <span>
                                 Contact Number
                             </span>
-                            <template
-                                v-if="refSortBy == 'contact_number'"
-                            >
-                                <i
-                                    v-if="refSortDirection == 'asc'" 
-                                    class="bi bi-chevron-double-up"
-                                >
+                            <template v-if="refSortBy == 'contact_number'">
+                                <i v-if="refSortDirection == 'asc'" class="bi bi-chevron-double-up">
                                 </i>
-                                <i
-                                    v-else
-                                    class="bi bi-chevron-double-down"
-                                >
+                                <i v-else class="bi bi-chevron-double-down">
                                 </i>
                             </template>
                             <template v-else>
-                                <i
-                                    class="bi bi-chevron-bar-contract"
-                                >
+                                <i class="bi bi-chevron-bar-contract">
                                 </i>
                             </template>
                         </div>
@@ -347,13 +304,9 @@ const onChangeRequest = (requestData : Object | null) =>
                         <button type="button" class="btn btn-info btn-sm text-white me-2" disabled>
                             <i class="bi bi-pen-fill fs-6"></i>
                         </button>
-                        <Link 
-                            :href="route('customers.destroy', {slug : item.slug})"
-                            method="DELETE"
-                            class="btn btn-danger btn-sm"
-                            as="button"
-                        >
-                            <i class="bi bi-trash-fill fs-6"></i>
+                        <Link :href="route('customers.destroy', {slug : item.slug})" method="DELETE"
+                            class="btn btn-danger btn-sm" as="button">
+                        <i class="bi bi-trash-fill fs-6"></i>
                         </Link>
                     </td>
                 </tr>
@@ -362,35 +315,24 @@ const onChangeRequest = (requestData : Object | null) =>
     </div>
 
     <div class="container-fluid my-4 d-flex align-items-center justify-content-between">
-        
+
         <!-- SHOW ITEMS HERE-->
         <div>
-            Showing {{ dataMeta.from }} - {{ dataMeta.to }} of {{ dataMeta.of }} Items 
+            Showing {{ dataMeta.from }} - {{ dataMeta.to }} of {{ dataMeta.of }} Items
         </div>
 
         <!-- PAGINATION HERE -->
         <div>
-            <ComponentAppPagination
-                :totalPages="dataMeta.pages"
-                :perPage="refShowItems"
-                :currentPage="refCurrentPage"
-                :maxVisibleButtons="refVisiblePages"
-                @onPageChange="onPageChange"
-            />
+            <ComponentAppPagination :totalPages="dataMeta.pages" :perPage="refShowItems" :currentPage="refCurrentPage"
+                :maxVisibleButtons="refVisiblePages" @onPageChange="onPageChange" />
         </div>
     </div>
 
     <!-- Modal -->
     <Teleport to="body">
-        <div 
-            class="modal fade" 
-            id="modalCreate" 
-            data-bs-backdrop="static" 
-            data-bs-keyboard="false" 
-            tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true"
-        >
-            <ComponentCustomerModalContentCreate/>
+        <div class="modal fade" id="modalCreate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <ComponentCustomerModalContentCreate />
         </div>
     </Teleport>
 

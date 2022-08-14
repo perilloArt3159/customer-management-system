@@ -17,6 +17,17 @@ class CustomerService extends BaseService
     public function fetchItems($data)
     {
         $items  =   Customer::query()
+                        ->where(
+                            function ($query) use ($data)
+                            {
+                                if (isset($data['search']))
+                                {
+                                    $search = "%{$data['search']}%";
+
+                                    $query->where('name', 'like', $search);
+                                }
+                            }
+                        )
                         ->when(
                             isset($data['sortByColumn']),
                             function ($query) use ($data)
@@ -29,17 +40,6 @@ class CustomerService extends BaseService
                                 }
 
                                 $query->orderBy($data['sortByColumn'], $sortDirection);
-                            }
-                        )
-                        ->where(
-                            function ($query) use ($data)
-                            {
-                                if (isset($data['search']))
-                                {
-                                    $search = "%{$data['search']}%";
-
-                                    $query->where('name', 'like', $search);
-                                }
                             }
                         )
                         ->paginate(

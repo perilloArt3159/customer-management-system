@@ -24,8 +24,8 @@ const props = defineProps<Props>();
 
 const form = useForm(
     {
-        name    : null,
-        password: null,
+        name    : 'admin',
+        password: 'admin',
     }
 ); 
 

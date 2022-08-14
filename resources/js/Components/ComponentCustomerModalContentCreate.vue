@@ -36,6 +36,9 @@ const submit = () =>
             {
                 wasFormValidated.value = false;
                 form.reset();
+
+                const btnClose = document.querySelector('#btn-close');
+            btnClose.click();
             },
             onError: () => 
             {
@@ -66,7 +69,7 @@ const closeForm = () =>
             <form @submit.prevent="submit" class="needs-validation" novalidate>
                 <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="staticBackdropLabel">Customer Information</h5>
-                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close" @click="closeForm()"></button>
+                    <button id="btn-close" type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close" @click="closeForm()"></button>
                 </div>
                 <div class="modal-body">
                         <div class="form-group row my-3">
