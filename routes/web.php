@@ -31,6 +31,7 @@ Route::prefix('/customers')->group(
     function ()
     {
         Route::get('',                              [CustomerController::class,                  'index'])->name('customers');
+        Route::get('report/pdf',                    [CustomerController::class,                  'pdf'])->name('customers.pdf');
         Route::post('create',                       [CustomerController::class,                  'store'])->name('customers.store');
         Route::delete('destroy/{slug}',             [CustomerController::class,                  'destroy'])->name('customers.destroy');
 

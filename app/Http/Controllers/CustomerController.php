@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CustomerStoreRequest;
+use App\Models\Customer;
 use App\Services\CustomerService; 
+
+use PDF; 
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Inertia\Inertia;
+
 
 class CustomerController extends Controller
 {
@@ -60,7 +64,6 @@ class CustomerController extends Controller
         return redirect()->back()->with('message', 'New Customer Created');
     }
 
-
     /**
      * Store Customer Data 
      * 
@@ -73,5 +76,24 @@ class CustomerController extends Controller
         (new CustomerService())->deleteItem($slug); 
 
         return redirect()->back()->with('message', 'Customer Deleted');
+    }
+
+    /**
+     * Generate PDF 
+     * 
+     * @return stream?
+     */
+    public function pdf()
+    {
+        $data = 
+        [
+            'title' => 'CUSTOMERS LIST',
+            'items' => Customer::all()
+        ]; 
+
+        $pdf = PDF::loadView('pdf.customer', $data)
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->stream('customers_list.pdf');
     }
 }

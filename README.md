@@ -37,7 +37,7 @@ Can't think of a fancy description for this project.
 |[cviebrock/eloquent-sluggable](https://github.com/cviebrock/eloquent-sluggable)                                |`9.0.0`          |Generate Slugs for Eloquent Models                  |
 |[inertiajs/inertia-laravel](https://inertiajs.com/)                                                            |`0.11.0`         |The Laravel adapter for Inertia.js                  |
 |[tighten/ziggy](https://github.com/tighten/ziggy)                                                              |`1.4.6`          |Enables usage of Laravel named routes in JavaScript |
-|[barryvdh/laravel-dompdf ](https://github.com/barryvdh/laravel-dompdf)                                         |`2.0.0`          |Laravel wrapper for Dompdf HTML to PDF Converter    |
+|[barryvdh/laravel-dompdf](https://github.com/barryvdh/laravel-dompdf)                                         |`2.0.0`          |Laravel wrapper for Dompdf HTML to PDF Converter    |
 
 ### NPM Packages
 
@@ -45,7 +45,7 @@ Can't think of a fancy description for this project.
 |:--------------------------------------------------------------------------------:                             |:---------------:|:-------------------------------------------:  |
 |[SASS](https://sass-lang.com/)                                                                                 |`1.54.4`         |CSS Preprocessor                               |
 |[Slugify](https://www.npmjs.com/package/slugify)                                                               |`1.6.2`          |Sluggify Strings                               |
-|[Bootstrap Icons](https://icons.getbootstrap.com)                                                              |`1.9.1`         |Open-source Icon Library                           |
+|[Bootstrap Icons](https://icons.getbootstrap.com)                                                              |`1.9.1`          |Open-source Icon Library                           |
 
 ## Project Setup
 

@@ -36,12 +36,16 @@ const props = defineProps <Props>();
             </button>
         </div>
         <div class="ms-auto me-2">
-            <button class="btn btn-primary d-flex align-items-center fw-bold flex-shrink-1">
+            <a 
+                class="btn btn-primary d-flex align-items-center fw-bold flex-shrink-1"
+                target="_blank"
+                :href="route('customers.pdf')"
+            >
                 <i class="bi bi-printer fs-6"></i>
                 <span class="mx-1">
                     Print
                 </span>
-            </button>
+            </a>
         </div>
 
         <div>
