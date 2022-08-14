@@ -15,12 +15,12 @@ interface Props
 
 const props = defineProps <Props>(); 
 
-const refCurrentPage  = ref<number>(props.customers.current_page);
-const refSearchQuery  = ref<string | null>(null);
-const refSortBy       = ref<string | null>(null);
-const refSortDesc     = ref<boolean>(false);
-const refShowItems    = ref<number>(props.customers.per_page);
-const refTotalItems   = computed(() => props.customers.total);
+const refCurrentPage   = ref<number>(props.customers.current_page);
+const refSearchQuery   = ref<string | null>(null);
+const refSortBy        = ref<string | null>(null);
+const refSortDirection = ref<string>('asc');
+const refShowItems     = ref<number>(props.customers.per_page);
+const refTotalItems    = computed(() => props.customers.total);
 
 const refVisiblePages = ref<number>(10);
 
@@ -70,7 +70,7 @@ const dataMeta = computed(() =>
 );
 
 watch(
-    [refCurrentPage],
+    [refCurrentPage, refSortBy, refSortDirection],
     debounce(function () 
         {
             const requestData : Object =
@@ -79,7 +79,7 @@ watch(
                 'sizePerPage': refShowItems.value,
                 'showPage'   : refCurrentPage.value,
                 'sortBy'     : refSortBy.value,
-                'sortDesc'   : refSortDesc.value,
+                'sortDirection'   : refSortDirection.value,
             };
 
             onChangeRequest(requestData);
@@ -100,7 +100,7 @@ watch(
                 'sizePerPage': refShowItems.value,
                 'showPage'   : refCurrentPage.value,
                 'sortBy'     : refSortBy.value,
-                'sortDesc'   : refSortDesc.value,
+                'sortDirection'   : refSortDirection.value,
             };
 
             onChangeRequest(requestData);
@@ -109,16 +109,36 @@ watch(
     )
 ); 
 
-const onChangeRequest = (requestData : Object) => 
+const sortColumn = (column : string) => 
+{
+    if (refSortBy.value == column) 
+    {
+        if (refSortDirection.value == 'asc')
+        {
+            refSortDirection.value = 'desc'; 
+        }
+        else 
+        {
+            refSortDirection.value = 'asc'; 
+        }
+    }
+    else 
+    {
+        refSortBy.value = column;  
+    }
+
+}
+
+const onChangeRequest = (requestData : Object | null) => 
 {
     Inertia.get(
         route('customers'),
         {
-            'search'               : requestData.search ?? null,
-            'sizePerPage'          : requestData.sizePerPage ?? 10,
-            'showPage'             : requestData.showPage ?? 1,
-            'sortByColumn'         : requestData.sortBy ?? 'name',
-            'sortByDescending'     : requestData.sortDesc ?? false,
+            'search'       : requestData.search ?? null,
+            'sizePerPage'  : requestData.sizePerPage ?? 10,
+            'showPage'     : requestData.showPage ?? 1,
+            'sortByColumn' : requestData.sortBy ?? 'name',
+            'sortDirection': requestData.sortDirection ?? 'asc',
         },
         {
             preserveState: true,
@@ -126,11 +146,6 @@ const onChangeRequest = (requestData : Object) =>
         }
     ); 
 };
-
-console.log('In Main')
-
-console.table(refCurrentPage.value, refSearchQuery.value, refSortBy.value, refSortDesc.value, refShowItems.value, refTotalItems.value, dataMeta.value.pages);
-
 </script>
 
 <style lang="scss">
@@ -183,13 +198,129 @@ console.table(refCurrentPage.value, refSearchQuery.value, refSortBy.value, refSo
 
     <div class="container-fluid my-3">
         <table class="table table-responsive table-hover shadow table-light  table-striped table-bordered align-middle">
-            <thead class="bg-white">
+            <thead class="bg-white text-secondary">
                 <tr>
                     <th></th>
-                    <th>Customer Name</th>
-                    <th>Contact Person</th>
-                    <th>Address</th>
-                    <th>Contact No</th>
+                    <th
+                        class="cursor-pointer" 
+                        @click="sortColumn('name')"
+                    >
+                        <div class="d-flex justify-content-between">
+                            <span>
+                                Customer Name
+                            </span>
+                            <template
+                                v-if="refSortBy == 'name'"
+                            >
+                                <i
+                                    v-if="refSortDirection == 'asc'" 
+                                    class="bi bi-chevron-double-up"
+                                >
+                                </i>
+                                <i
+                                    v-else
+                                    class="bi bi-chevron-double-down"
+                                >
+                                </i>
+                            </template>
+                            <template v-else>
+                                <i
+                                    class="bi bi-chevron-bar-contract"
+                                >
+                                </i>
+                            </template>
+                        </div>
+                    </th>
+                    <th
+                        class="cursor-pointer" 
+                        @click="sortColumn('contact_person')"
+                    >
+                        <div class="d-flex justify-content-between">
+                            <span>
+                                Contact Person
+                            </span>
+                            <template
+                                v-if="refSortBy == 'contact_person'"
+                            >
+                                <i
+                                    v-if="refSortDirection == 'asc'" 
+                                    class="bi bi-chevron-double-up"
+                                >
+                                </i>
+                                <i
+                                    v-else
+                                    class="bi bi-chevron-double-down"
+                                >
+                                </i>
+                            </template>
+                            <template v-else>
+                                <i
+                                    class="bi bi-chevron-bar-contract"
+                                >
+                                </i>
+                            </template>
+                        </div>
+                    </th>
+                    <th
+                        class="cursor-pointer" 
+                        @click="sortColumn('address')"
+                    >
+                        <div class="d-flex justify-content-between">
+                            <span>
+                                Address
+                            </span>
+                            <template
+                                v-if="refSortBy == 'address'"
+                            >
+                                <i
+                                    v-if="refSortDirection == 'asc'" 
+                                    class="bi bi-chevron-double-up"
+                                >
+                                </i>
+                                <i
+                                    v-else
+                                    class="bi bi-chevron-double-down"
+                                >
+                                </i>
+                            </template>
+                            <template v-else>
+                                <i
+                                    class="bi bi-chevron-bar-contract"
+                                >
+                                </i>
+                            </template>
+                        </div>
+                    </th>
+                    <th
+                        class="cursor-pointer" 
+                        @click="sortColumn('contact_number')"
+                    >
+                        <div class="d-flex justify-content-between">
+                            <span>
+                                Contact Number
+                            </span>
+                            <template
+                                v-if="refSortBy == 'contact_number'"
+                            >
+                                <i
+                                    v-if="refSortDirection == 'asc'" 
+                                    class="bi bi-chevron-double-up"
+                                >
+                                </i>
+                                <i
+                                    v-else
+                                    class="bi bi-chevron-double-down"
+                                >
+                                </i>
+                            </template>
+                            <template v-else>
+                                <i
+                                    class="bi bi-chevron-bar-contract"
+                                >
+                                </i>
+                            </template>
+                        </div>
+                    </th>
                     <th>Actions</th>
                 </tr>
             </thead>

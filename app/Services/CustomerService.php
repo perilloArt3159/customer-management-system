@@ -22,10 +22,10 @@ class CustomerService extends BaseService
                             function ($query) use ($data)
                             {
                                 $sortDirection = 'asc';
-
-                                if ($data['sortByDescending'])
+                                
+                                if ($data['sortDirection'])
                                 {
-                                    $sortDirection = 'desc';
+                                    $sortDirection = $data['sortDirection'];
                                 }
 
                                 $query->orderBy($data['sortByColumn'], $sortDirection);

@@ -37,8 +37,8 @@ class CustomerController extends Controller
                 'search',     
                 'sizePerPage',
                 'showPage',
-                'sortBy',     
-                'sortDesc'   
+                'sortByColumn',     
+                'sortDirection'   
             )
         ); 
 

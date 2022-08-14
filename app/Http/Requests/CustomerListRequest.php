@@ -29,7 +29,7 @@ class CustomerListRequest extends FormRequest
             'sizePerPage'      => ['nullable', 'integer'],
             'showPage'         => ['nullable', 'integer'],
             'sortByColumn'     => ['nullable', 'string'],
-            'sortByDescending' => ['nullable']
+            'sortDirection'    => ['nullable', 'string']
         ];
     }
 }

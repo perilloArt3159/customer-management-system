@@ -64,7 +64,7 @@ const onClickNextPage = () =>
 
     emit('onPageChange', value);
 };
-
+    
 const onClickLastPage = () => 
 {
     emit('onPageChange', props.totalPages); 
